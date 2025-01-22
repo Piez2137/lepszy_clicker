@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        h1 { color: #333; }
+        button { font-size: 20px; padding: 10px 20px; margin: 10px; cursor: pointer; }
+        #points { font-size: 24px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Clicker Game</h1>
+    <p id="points">Points: 0</p>
+    <button id="clickButton">Click Me!</button>
+    <button id="buyBotButton" disabled>Buy Bot (100 points)</button>
+    <p id="bots">Bots: 0</p>
+
+    <script>
+        let points = 0;
+        let bots = 0;
+
+        // Function to update points and bot display
+        function update() {
+            document.getElementById("points").textContent = "Points: " + points;
+            document.getElementById("bots").textContent = "Bots: " + bots;
+            document.getElementById("buyBotButton").disabled = points < 100;
+        }
+
+        // Click button functionality
+        document.getElementById("clickButton").onclick = function() { points++; update(); };
+
+        // Buy bot functionality
+        document.getElementById("buyBotButton").onclick = function() { 
+            if (points >= 100) {
+                points -= 100;
+                bots++;
+                update();
+            }
+        };
+
+        // Bots clicking every second
+        setInterval(function() { points += bots; update(); }, 1000);
+    </script>
+</body>
+</html>
